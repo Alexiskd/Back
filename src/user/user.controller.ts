@@ -1,6 +1,5 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Patch, Body } from '@nestjs/common';
 import { UserService } from './user.service';
-
 
 @Controller('users')
 export class UserController {
@@ -13,7 +12,16 @@ export class UserController {
 
     @Get('/:userId')
     getUser(@Param('userId') userId: string){
-        return this.userService.getUser({userId,});
+        return this.userService.getUser({ userId });
     }
 
+    @Patch('/:userId/description')
+    updateDescription(@Param('userId') userId: string, @Body('description') newDescription: string) {
+        return this.userService.updateDescription(userId, newDescription);
+    }
+
+    @Patch('/:userId/email')
+    updateEmail(@Param('userId') userId: string, @Body('email') newEmail: string) {
+        return this.userService.updateEmail(userId, newEmail);
+    }
 }
